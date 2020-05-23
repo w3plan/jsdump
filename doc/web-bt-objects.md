@@ -1,4 +1,4 @@
-AbortController<br/><br/>
+AbortController<br/>
 AbortSignal<br/>
 AbsoluteOrientationSensor<br/>
 Accelerometer<br/>
