@@ -1,3 +1,22 @@
+## Table of document contents
+
+1. [JSDump](#JSDump)
+2. [JSDump-Web](#JSDump-Web)
+3. [Entries object](#Entries-object)
+4. [Dumps a general object](#Dumps-a-general-object)
+5. [Dumps a function](#Dumps-a-function)
+6. [Dumps a class](#Dumps-a-class)
+7. [JSDump APIs](#JSDump-APIs)
+8. [JSDump-Web APIs](#JSDump-Web-APIs)
+9. [Property attributes](#Property-attributes)
+10. [Serialization](#Serialization)
+11. [Default hidden Keys](#Default-hidden-Keys)
+12. [Property types and super property types](#Property-types-and-super-property-types)
+13. [JavaScript built-in prototype objects](#JavaScript-built-in-prototype-objects)
+14. [Web built-in prototype objects](#Web-built-in-prototype-objects)
+15. [Function parameter](#Function-parameter)
+
+
 ## JSDump
 
 JSDump is a tool to dump out the information of own and inherited properties from an object, object prototype, and object instance.
@@ -56,7 +75,7 @@ Entry is an object that describes a property of the object which was processed b
 Entries object is null if the obj is a primitive type: string, number, bigint, boolean, symbol, undefined, or null.
 
 
-## Dump a general object
+## Dumps a general object
 
 The general object is a JavaScript standard built-in object, a Node.js module object, or a customed object, the properties of entries object from a general object are:
 
@@ -73,9 +92,9 @@ For example, the entries object got from jsdump.entriesPrint( {} ):
 }
 ```
 
-## Dump a function
+## Dumps a function
 
-A function is a JavaScript object, supposing jsFunct is the function which should be processed, key is a property name to jsFunct, and baseFunct is another function object, the propertis of entries object from jsFunct would be:
+A function is a JavaScript object, supposing jsFunct is the function which should be processed, key is a property name to jsFunct, and baseFunct is another function object, the propertis of entries object from jsFunct and baseFunct would be:
 
 *  ownEntries
     An array of entries that stored the information from jsFunct.key or Object.defineProperty(jsFunct, key, descriptor).
@@ -128,7 +147,7 @@ There is no prototype and instance to an arrow function, so the entries object f
 }
 ```
 
-## Dump a class  
+## Dumps a class  
 
 A class is a function object, the features of a class include all methods in a class are public, a property in a class is either public or private, a class property and a class method could be static.
 
@@ -338,7 +357,7 @@ JSDump API allows users to assign new hidden Keys to filter the output content.
 |AnonymousFunction |function |
 |Function |function |
 |AnonymousClass |class |
-|class |class |
+|Class |class |
 |EmptyArray |indexedCollection |
 |Array |indexedCollection |
 |Int8Array |indexedCollection |
