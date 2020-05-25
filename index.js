@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 const serialize = require('serialize-javascript');
+const supportsColor = require('supports-color');
 const dumpEntries = require('./main');
 
 /**
@@ -36,7 +37,12 @@ const superTypes = {
  * @return {string}   A formated string
  */
 function formatPrint(val) {
-  return util.inspect(val, false, 10, true, true, true);
+  var color = false;
+  if (supportsColor.stdout) {
+    color = true;
+  }
+  
+  return util.inspect(val, false, 10, color, true, true);
 }
 
 /**
@@ -179,13 +185,13 @@ function updateTypeEntries(entries, typeEntries, type) {
  */
 function dumpInfo() {
   const info = `
-     ***  JSDump v1.0.2  ***
+     ***  JSDump  ***
   JSDump is a tool to dump out the information of own and inherited properties from an object, 
   object prototype, and object instance.
   
-  Sample Usage:
+  Sample usage:
     const jsdump = require('jsdump');
-
+  
     // prints this message.
     jsdump.info();
     // returns an object that includes dumped out content from class URL.
@@ -198,17 +204,22 @@ function dumpInfo() {
     
     // writes the information of class URL to a txt file in current directory.
     jsdump.entriesFile(URL);
-    // writes the serialized information of class URL to a txt file in current directory.  
+    /* writes the serialized information of class URL to a txt file 
+       in current directory. */
     jsdump.entriesFile(URL, false);
-
-    // prints the information of entries type with 'function' from class URL to the console.
+    
+    /* prints the information of entries type with 'function' 
+       from class URL to the console. */
     jsdump.typeEntriesPrint(URL);
-    // prints the serialized information of entries type with 'function' from class URL to the console.
+    /* prints the serialized information of entries type 
+       with 'function' from class URL to the console. */
     jsdump.typeEntriesPrint(URL, 'function', false);
     
-    // writes the information of entries type with 'function' from class URL to txt file.
+    /* writes the information of entries type with 'function' 
+       from class URL to txt file. */
     jsdump.typeEntriesFile(URL);
-    // writes the serialized information of entries type with 'function' from class URL to txt file.
+    /* writes the serialized information of entries type 
+       with 'function' from class URL to txt file. */
     jsdump.typeEntriesFile(URL, 'function', false);
     
     // prints constructor source of class URL to the console.
@@ -216,10 +227,12 @@ function dumpInfo() {
     // prints toString() source of class URL to the console.
     jsdump.sourcePrint(URL, 'toString');
 
-    // writes the constructor source of class URL to a txt file in current directory.
+    /* writes the constructor source of class URL to a txt 
+       file in current directory. */
     jsdump.sourceFile(URL);
-    // writes toString() source of class URL to a txt file in current directory.
-    jsdump.sourceFile(URL, 'toString');  
+    /* writes toString() source of class URL to a txt file 
+       in current directory. */
+    jsdump.sourceFile(URL, 'toString');
    
   Author: Richard Li <richard.li@w3plan.net>, License: MIT
 `;
@@ -254,6 +267,7 @@ function dumpSourcePrint(obj, prop = 'constructor') {
  */
 function dumpSourceFile(obj, prop = 'constructor', file) {
   var file = file || '',
+      fdir = '',
       source = '',
       entries = dumpEntries(obj);
   
@@ -265,8 +279,15 @@ function dumpSourceFile(obj, prop = 'constructor', file) {
   }
   
   if (!file) {
+
+    if (require.main && require.main.filename) {
+      fdir = path.dirname(require.main.filename);
+    } else {
+      fdir = process.cwd();
+    }
+
     file = path.join(
-                      path.dirname( require.main.filename ), 
+                      fdir, 
                       "dump-" + (Math.floor( 1000 + Math.random() * 9000 )) + ".src.txt"
                     );
   }
@@ -318,7 +339,12 @@ function dumpEntriesPrint(obj, compact = true, hiddenKeys = []) {
         props = doSerialization(props);
       }
       
-      console.log("\x1b[1m%s\x1b[0m", "\n" + key);
+      if (supportsColor.stdout) {
+        console.log("\x1b[1m%s\x1b[0m", "\n" + key);
+      } else {
+        console.log("\n" + key);
+      }
+      
       console.log( formatPrint(props) );
       
       flag = false;
@@ -368,7 +394,7 @@ function typeEntriesPrint(obj, propType = 'function', compact = true, hiddenKeys
                             write dump-n.txt to current directory, here n is an integer between 1000 and 9999.
  */
 function dumpEntriesFile(obj, compact = true, hiddenKeys = [], file) {
-  var file = file || '';
+  var file = file || '', fdir = '';
   var entries = dumpEntries(obj, hiddenKeys);
   
   if (entries === null ) return;
@@ -376,10 +402,17 @@ function dumpEntriesFile(obj, compact = true, hiddenKeys = [], file) {
   if (file) {
 
     if ( !fs.existsSync( path.dirname(file) ) ) file = '';
-  } 
+  }
   
   if (!file) {
-    file = path.join( path.dirname( require.main.filename ), 
+
+    if (require.main && require.main.filename) {
+      fdir = path.dirname(require.main.filename);
+    } else {
+      fdir = process.cwd();
+    }
+
+    file = path.join( fdir, 
                       "dump-" + (Math.floor( 1000 + Math.random() * 9000 )) + ".txt"
                     );
   }
@@ -418,6 +451,7 @@ function dumpEntriesFile(obj, compact = true, hiddenKeys = [], file) {
  */
 function typeEntriesFile(obj, propType = 'function', compact = true, hiddenKeys = [], file) {
   var file = file || '',
+      fdir = '',
       typeEntries = [],
       entries = dumpEntries(obj, hiddenKeys);
   
@@ -428,7 +462,14 @@ function typeEntriesFile(obj, propType = 'function', compact = true, hiddenKeys 
   }
   
   if (!file) {
-    file = path.join( path.dirname( require.main.filename ), 
+
+    if (require.main && require.main.filename) {
+      fdir = path.dirname(require.main.filename);
+    } else {
+      fdir = process.cwd();
+    }
+    
+    file = path.join( fdir, 
                       "dump-" + (Math.floor( 1000 + Math.random() * 9000 )) + "." + propType + ".txt"
                     );
   }

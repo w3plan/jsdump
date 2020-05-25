@@ -11,7 +11,7 @@ JSDump-Web is a version of JSDump specified for web browsers. To access [JSDump-
 
 ## Documentation
 
-To see [JSDump documentation](doc/document.md "JSDump documentation")
+To see [JSDump documentation](https://github.com/w3plan/jsdump/blob/master/doc/document.md "JSDump documentation")
 
 
 ## Installation
@@ -32,7 +32,7 @@ To see [JSDump documentation](doc/document.md "JSDump documentation")
   // prints the information of class URL to the console.
   jsdump.entriesPrint(URL);
   // prints the serialized information of class URL to the console.
-  jsdump.entriesPrint(URL, false);
+  jsdump.typeEntriesPrint(URL, false);
   
   // writes the information of class URL to a txt file in current directory.
   jsdump.entriesFile(URL);

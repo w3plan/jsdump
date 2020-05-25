@@ -1,16 +1,16 @@
 {
   "name": "jsdump",
-  "version": "1.0.2",
-  "description": "Dumping-out the information of own and inherited properties from an object, object prototype, and object instance",
+  "version": "1.0.5",
+  "description": "JSDump is a tool to dump out the information of own and inherited properties from an object, object prototype, and object instance",
   "main": "index.js",
   "directories": {
     "lib": "lib",
-    "test":"test",
-    "doc": "doc"
+    "test": "test"
   },
   "dependencies": {
     "mocha": "^7.1.2",
-    "serialize-javascript": "^3.0.0"
+    "serialize-javascript": "^3.0.0",
+    "supports-color": "^7.1.0"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -41,12 +41,12 @@
     "url": "https://github.com/w3plan/jsdump/issues/",
     "email": "richard.li@w3plan.net"
   },
-  "author": { 
-    "name" : "Richard Li", 
-    "email" : "richard.li@w3plan.net"
+  "author": {
+    "name": "Richard Li",
+    "email": "richard.li@w3plan.net"
   },
   "license": {
     "type": "MIT",
     "url": "https://www.opensource.org/licenses/mit-license.php"
-    }
+  }
 }

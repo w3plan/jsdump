@@ -396,7 +396,6 @@ JSDump API allows users to assign new hidden Keys to filter the output content.
 |BoxedPrimitive |others |
 |GeneratorObject |others |
 |ArgumentsObject |others |
-|ModuleNamespaceObject * |others |
 |Object |others |
 |Date |others |
 |RegExp |others |
