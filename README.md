@@ -67,12 +67,14 @@ To see [JSDump documentation](doc/document.md "JSDump documentation")
   jsdump.sourceFile(URL, 'toString');
   
 ```
+To see [JSDump APIs](https://github.com/w3plan/jsdump/blob/master/doc/document.md#JSDump-APIs "JSDump APIs")
+
 
 ## Tests
 
 Runs the following commands from your project.
 
-` $ cd ./node_modules/jsdump `
+` $ cd ./node_modules/jsdump ` <br>
 ` $ npm test `
 
 
