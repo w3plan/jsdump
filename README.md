@@ -19,7 +19,7 @@ To see [JSDump documentation](doc/document.md "JSDump documentation")
   ` $ npm install jsdump `
 
 
-## Usage
+## Usage examples
 
 ```javascript
   const jsdump = require('jsdump');
@@ -36,17 +36,22 @@ To see [JSDump documentation](doc/document.md "JSDump documentation")
   
   // writes the information of class URL to a txt file in current directory.
   jsdump.entriesFile(URL);
-  // writes the serialized information of class URL to a txt file in current directory.  
+  /* writes the serialized information of class URL to a txt file 
+     in current directory. */
   jsdump.entriesFile(URL, false);
-
-  // prints the information of entries type with 'function' from class URL to the console.
+  
+  /* prints the information of entries type with 'function' 
+     from class URL to the console. */
   jsdump.typeEntriesPrint(URL);
-  // prints the serialized information of entries type with 'function' from class URL to the console.
+  /* prints the serialized information of entries type 
+     with 'function' from class URL to the console. */
   jsdump.typeEntriesPrint(URL, 'function', false);
   
-  // writes the information of entries type with 'function' from class URL to txt file.
+  /* writes the information of entries type with 'function' 
+     from class URL to txt file. */
   jsdump.typeEntriesFile(URL);
-  // writes the serialized information of entries type with 'function' from class URL to txt file.
+  /* writes the serialized information of entries type 
+     with 'function' from class URL to txt file. */
   jsdump.typeEntriesFile(URL, 'function', false);
   
   // prints constructor source of class URL to the console.
@@ -54,17 +59,20 @@ To see [JSDump documentation](doc/document.md "JSDump documentation")
   // prints toString() source of class URL to the console.
   jsdump.sourcePrint(URL, 'toString');
 
-  // writes the constructor source of class URL to a txt file in current directory.
+  /* writes the constructor source of class URL to a txt 
+     file in current directory. */
   jsdump.sourceFile(URL);
-  // writes toString() source of class URL to a txt file in current directory.
+  /* writes toString() source of class URL to a txt file 
+     in current directory. */
   jsdump.sourceFile(URL, 'toString');
   
 ```
 
 ## Tests
 
-Run the following command from JSDump project or JSDump module.
+Runs the following commands from your project.
 
+` $ cd ./node_modules/jsdump `
 ` $ npm test `
 
 
